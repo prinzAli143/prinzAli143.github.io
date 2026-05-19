@@ -151,7 +151,9 @@
       font-weight: 600;
       letter-spacing: .1em;
       text-transform: uppercase;
-      padding: .85rem 2.2rem;
+      padding: 1.1rem 1.5rem;
+      width: 320px;
+      justify-content: center;
       border-radius: 4px;
       position: relative;
       overflow: hidden;
@@ -176,6 +178,18 @@
     }
 
     .btn:hover::before { transform: translateX(100%); }
+
+    .btn-outline {
+      color: var(--neon-cyan);
+      background: transparent;
+      border: 1px solid rgba(0,245,255,.5);
+      box-shadow: 0 0 14px rgba(0,245,255,.2), inset 0 0 14px rgba(0,245,255,.04);
+    }
+
+    .btn-outline:hover {
+      background: rgba(0,245,255,.08);
+      box-shadow: 0 0 28px rgba(0,245,255,.45), inset 0 0 20px rgba(0,245,255,.08);
+    }
 
     /* ── Floating orbs ── */
     .orb {
@@ -227,15 +241,25 @@
   <!-- Hero -->
   <section class="hero">
     <div class="hero-badge">v2.0 — Cyberpunk Edition</div>
-    <h1>Welcome to<br>My Space</h1>
+    <h1>Welcome to<br>MIAMI</h1>
     <p class="hero-sub">
       Un espace futuriste pour explorer mes projets,<br>
       ressources et liens utiles.
     </p>
-    <a href="links.html" class="btn">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      Explorer les ressources
-    </a>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+      <a href="links.html" class="btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Explorer les ressources
+      </a>
+      <a href="https://maps.app.goo.gl/DCdN8YHF15wEbS267" target="_blank" rel="noopener" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 17l4-8 4 4 4-6 4 6"/><path d="M3 20h18"/></svg>
+        Water Taxi Miami Beach
+      </a>
+      <a href="https://maps.app.goo.gl/vwNciYVM5tbqKxUy8" target="_blank" rel="noopener" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 17l4-8 4 4 4-6 4 6"/><path d="M3 20h18"/></svg>
+        Water Taxi Miami
+      </a>
+    </div>
   </section>
 
 </body>
