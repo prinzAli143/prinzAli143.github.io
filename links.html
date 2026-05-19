@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrinzAli — Ressources</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --neon-cyan:   #00f5ff;
+      --neon-pink:   #ff00c8;
+      --neon-violet: #9d00ff;
+      --bg:          #060610;
+      --bg2:         #0d0d20;
+      --text:        #e0e0ff;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,245,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,245,255,.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(0,0,0,.07) 2px, rgba(0,0,0,.07) 4px
+      );
+      pointer-events: none;
+      z-index: 200;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(6, 6, 16, .75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,245,255,.15);
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--neon-cyan);
+      text-decoration: none;
+      text-shadow: 0 0 10px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+    }
+
+    .logo span { color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: .9rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color .25s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+      border-radius: 2px;
+      transition: width .3s ease;
+    }
+
+    .nav-links a:hover { color: var(--neon-cyan); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--neon-cyan); }
+    .nav-links a.active::after { width: 100%; }
+
+    /* ── Page content ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 7rem 1.5rem 4rem;
+    }
+
+    .page-header { margin-bottom: 3rem; }
+
+    .page-badge {
+      display: inline-block;
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--neon-pink);
+      border: 1px solid rgba(255,0,200,.35);
+      border-radius: 2rem;
+      padding: .3rem .9rem;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 0 10px rgba(255,0,200,.15);
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-violet) 60%, var(--neon-pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 14px rgba(0,245,255,.3));
+      margin-bottom: .8rem;
+    }
+
+    .page-sub {
+      color: rgba(224,224,255,.5);
+      font-size: .95rem;
+      line-height: 1.6;
+    }
+
+    /* ── Category ── */
+    .category { margin-bottom: 2.5rem; }
+
+    .category-title {
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--neon-violet);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .category-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(157,0,255,.4), transparent);
+    }
+
+    /* ── Link card ── */
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      text-decoration: none;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      border: 1px solid rgba(0,245,255,.08);
+      background: rgba(13,13,32,.6);
+      backdrop-filter: blur(8px);
+      margin-bottom: .75rem;
+      transition: border-color .25s, background .25s, transform .2s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(0,245,255,.04), transparent);
+      transform: translateX(-100%);
+      transition: transform .5s ease;
+    }
+
+    .link-card:hover {
+      border-color: rgba(0,245,255,.35);
+      background: rgba(13,13,32,.9);
+      transform: translateX(4px);
+      box-shadow: 0 0 20px rgba(0,245,255,.08), inset 0 0 20px rgba(0,245,255,.03);
+    }
+
+    .link-card:hover::before { transform: translateX(100%); }
+
+    .link-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      background: rgba(0,245,255,.08);
+      border: 1px solid rgba(0,245,255,.15);
+    }
+
+    .link-info { flex: 1; min-width: 0; }
+
+    .link-name {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: .2rem;
+      transition: color .2s;
+    }
+
+    .link-card:hover .link-name { color: var(--neon-cyan); }
+
+    .link-desc {
+      font-size: .8rem;
+      color: rgba(224,224,255,.45);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .link-arrow {
+      color: rgba(0,245,255,.3);
+      transition: color .2s, transform .2s;
+      flex-shrink: 0;
+    }
+
+    .link-card:hover .link-arrow {
+      color: var(--neon-cyan);
+      transform: translateX(3px);
+    }
+
+    /* ── Orbs ── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: .15;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .orb-1 { width: 400px; height: 400px; background: var(--neon-pink);   top: -100px; right: -80px; }
+    .orb-2 { width: 300px; height: 300px; background: var(--neon-cyan);   bottom: -60px; left: -60px; }
+  </style>
+</head>
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html" class="logo">Prinz<span>Ali</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="links.html" class="active">Ressources</a></li>
+    </ul>
+  </nav>
+
+  <!-- Content -->
+  <main class="page">
+    <header class="page-header">
+      <div class="page-badge">Liens utiles</div>
+      <h1>Ressources</h1>
+      <p class="page-sub">Une sélection de liens et outils que j'utilise au quotidien.</p>
+    </header>
+
+    <!-- Catégorie 1 -->
+    <section class="category">
+      <div class="category-title">Développement</div>
+
+      <a href="https://github.com" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon">⚙️</div>
+        <div class="link-info">
+          <div class="link-name">GitHub</div>
+          <div class="link-desc">Hébergement de code et collaboration open-source</div>
+        </div>
+        <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+
+      <a href="https://developer.mozilla.org" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon">📖</div>
+        <div class="link-info">
+          <div class="link-name">MDN Web Docs</div>
+          <div class="link-desc">Documentation officielle HTML, CSS et JavaScript</div>
+        </div>
+        <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+
+      <a href="https://stackoverflow.com" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon">💬</div>
+        <div class="link-info">
+          <div class="link-name">Stack Overflow</div>
+          <div class="link-desc">Communauté Q&amp;A pour les développeurs</div>
+        </div>
+        <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </section>
+
+    <!-- Catégorie 2 -->
+    <section class="category">
+      <div class="category-title">Design &amp; UI</div>
+
+      <a href="https://www.figma.com" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon">🎨</div>
+        <div class="link-info">
+          <div class="link-name">Figma</div>
+          <div class="link-desc">Outil de design collaboratif en ligne</div>
+        </div>
+        <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+
+      <a href="https://coolors.co" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon">🌈</div>
+        <div class="link-info">
+          <div class="link-name">Coolors</div>
+          <div class="link-desc">Générateur de palettes de couleurs</div>
+        </div>
+        <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+
+      <a href="https://fonts.google.com" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon">🔤</div>
+        <div class="link-info">
+          <div class="link-name">Google Fonts</div>
+          <div class="link-desc">Bibliothèque de polices open-source</div>
+        </div>
+        <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </section>
+
+    <!-- Catégorie 3 -->
+    <section class="category">
+      <div class="category-title">Outils &amp; Productivité</div>
+
+      <a href="https://claude.ai" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon">🤖</div>
+        <div class="link-info">
+          <div class="link-name">Claude AI</div>
+          <div class="link-desc">Assistant IA d'Anthropic</div>
+        </div>
+        <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+
+      <a href="https://www.notion.so" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon">📝</div>
+        <div class="link-info">
+          <div class="link-name">Notion</div>
+          <div class="link-desc">Workspace tout-en-un pour notes et projets</div>
+        </div>
+        <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+
+      <a href="https://vercel.com" target="_blank" rel="noopener" class="link-card">
+        <div class="link-icon">🚀</div>
+        <div class="link-info">
+          <div class="link-name">Vercel</div>
+          <div class="link-desc">Plateforme de déploiement frontend</div>
+        </div>
+        <svg class="link-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </section>
+  </main>
+
+</body>
+</html>
