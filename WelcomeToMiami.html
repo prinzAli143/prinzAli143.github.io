@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrinzAli — Home</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --neon-cyan:   #00f5ff;
+      --neon-pink:   #ff00c8;
+      --neon-violet: #9d00ff;
+      --bg:          #060610;
+      --bg2:         #0d0d20;
+      --text:        #e0e0ff;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Animated grid background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,245,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,245,255,.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(6, 6, 16, .75);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,245,255,.15);
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 10px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+    }
+
+    .logo span { color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: .9rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color .25s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+      border-radius: 2px;
+      transition: width .3s ease;
+    }
+
+    .nav-links a:hover { color: var(--neon-cyan); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--neon-cyan);
+      border: 1px solid rgba(0,245,255,.4);
+      border-radius: 2rem;
+      padding: .35rem 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 12px rgba(0,245,255,.2);
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 8vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      background: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-violet) 50%, var(--neon-pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(0,245,255,.35));
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-sub {
+      max-width: 520px;
+      font-size: 1.05rem;
+      color: rgba(224,224,255,.6);
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    /* ── CTA button ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 1.1rem 1.5rem;
+      width: 320px;
+      justify-content: center;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+      color: #060610;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-violet));
+      box-shadow: 0 0 18px rgba(0,245,255,.45), 0 0 40px rgba(157,0,255,.2);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 28px rgba(0,245,255,.7), 0 0 60px rgba(157,0,255,.35);
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.15) 50%, transparent 100%);
+      transform: translateX(-100%);
+      transition: transform .4s ease;
+    }
+
+    .btn:hover::before { transform: translateX(100%); }
+
+    .btn-outline {
+      color: var(--neon-cyan);
+      background: transparent;
+      border: 1px solid rgba(0,245,255,.5);
+      box-shadow: 0 0 14px rgba(0,245,255,.2), inset 0 0 14px rgba(0,245,255,.04);
+    }
+
+    .btn-outline:hover {
+      background: rgba(0,245,255,.08);
+      box-shadow: 0 0 28px rgba(0,245,255,.45), inset 0 0 20px rgba(0,245,255,.08);
+    }
+
+    /* ── Floating orbs ── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: .18;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .orb-1 { width: 500px; height: 500px; background: var(--neon-violet); top: -150px; right: -100px; }
+    .orb-2 { width: 350px; height: 350px; background: var(--neon-cyan);   bottom: -80px;  left: -80px;  }
+    .orb-3 { width: 280px; height: 280px; background: var(--neon-pink);   top: 40%;       left: 40%;    opacity: .10; }
+
+    /* ── QR button in nav ── */
+    .qr-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .45rem 1rem;
+      border-radius: 4px;
+      border: 1px solid rgba(0,245,255,.45);
+      color: var(--neon-cyan);
+      background: transparent;
+      cursor: pointer;
+      transition: background .2s, box-shadow .2s;
+      box-shadow: 0 0 10px rgba(0,245,255,.15);
+    }
+
+    .qr-btn:hover {
+      background: rgba(0,245,255,.1);
+      box-shadow: 0 0 18px rgba(0,245,255,.35);
+    }
+
+    /* ── QR Modal ── */
+    .qr-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(6,6,16,.85);
+      backdrop-filter: blur(10px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-overlay.open { display: flex; }
+
+    .qr-modal {
+      background: var(--bg2);
+      border: 1px solid rgba(0,245,255,.25);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(0,245,255,.15), 0 0 80px rgba(157,0,255,.1);
+      position: relative;
+      max-width: 320px;
+      width: 90%;
+    }
+
+    .qr-modal h3 {
+      font-size: 1rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan);
+      margin-bottom: 1.25rem;
+    }
+
+    .qr-modal img {
+      width: 200px;
+      height: 200px;
+      border-radius: 8px;
+      border: 2px solid rgba(0,245,255,.2);
+      display: block;
+      margin: 0 auto 1.25rem;
+    }
+
+    .qr-modal p {
+      font-size: .75rem;
+      color: rgba(224,224,255,.45);
+      letter-spacing: .05em;
+    }
+
+    .qr-close {
+      position: absolute;
+      top: .75rem;
+      right: .75rem;
+      background: none;
+      border: none;
+      color: rgba(224,224,255,.4);
+      font-size: 1.2rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color .2s;
+    }
+
+    .qr-close:hover { color: var(--neon-pink); }
+
+    /* ── Scanline overlay ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,.07) 2px,
+        rgba(0,0,0,.07) 4px
+      );
+      pointer-events: none;
+      z-index: 200;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo" style="cursor:pointer" onclick="document.getElementById('qrOverlay').classList.add('open')">Prinz<span>Ali</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+    </ul>
+  </nav>
+
+  <!-- QR Modal -->
+  <div class="qr-overlay" id="qrOverlay" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="qr-modal">
+      <button class="qr-close" onclick="document.getElementById('qrOverlay').classList.remove('open')">✕</button>
+      <h3>Scan to visit</h3>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=00f5ff&bgcolor=0d0d20&data=https://tinyurl.com/VisitMiami" alt="QR Code VisitMiami">
+      <p>tinyurl.com/VisitMiami</p>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">v2.0 — Cyberpunk Edition</div>
+    <h1>Welcome to<br>MIAMI</h1>
+    <p class="hero-sub">
+      A few of my favorite spots in Miami and Miami Beach — hidden gems, local favorites, and personal highlights to help you make the most of your visit. Enjoy!
+    </p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+      <a href="https://g.page/r/CV20BEsy1rJUEAg/review" target="_blank" rel="noopener" class="btn">
+        ⭐
+        Leave me a Review
+      </a>
+      <a href="https://maps.app.goo.gl/DCdN8YHF15wEbS267" target="_blank" rel="noopener" class="btn btn-outline">
+        🛥️
+        Water Taxi Miami Beach
+      </a>
+      <a href="https://maps.app.goo.gl/vwNciYVM5tbqKxUy8" target="_blank" rel="noopener" class="btn btn-outline">
+        🛥️
+        Water Taxi Miami
+      </a>
+      <a href="https://maps.app.goo.gl/iYqbxBBb6fyVQUJU7" target="_blank" rel="noopener" class="btn btn-outline">
+        🍔
+        Best Burger in Miami
+      </a>
+      <a href="https://maps.app.goo.gl/khXTFPkgsFc9ybAZ6" target="_blank" rel="noopener" class="btn btn-outline">
+        🌮
+        Best Tacos in Miami
+      </a>
+      <a href="https://maps.app.goo.gl/2Z5NZ3PXDPyE7UA77" target="_blank" rel="noopener" class="btn btn-outline">
+        🍸
+        Hidden Bar Miami Beach
+      </a>
+      <a href="https://ridefreebee.com" target="_blank" rel="noopener" class="btn btn-outline">
+        🐝
+        Miami Free Rides
+      </a>
+    </div>
+  </section>
+
+</body>
+</html>
