@@ -18,27 +18,25 @@
 
     /* ── Light mode overrides ── */
     body.light {
-      --bg:  #f0f0ff;
-      --bg2: #e0e0f5;
+      --bg:  #f7f7fb;
+      --bg2: #ededf5;
       --text: #0d0d30;
     }
 
-    body.light::before {
-      background-image:
-        linear-gradient(rgba(0,100,200,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,100,200,.06) 1px, transparent 1px);
-    }
+    /* hide the grid in light mode */
+    body.light::before { display: none; }
 
     body.light nav {
-      background: rgba(240,240,255,.85);
-      border-bottom: 1px solid rgba(0,245,255,.3);
+      background: rgba(247,247,251,.92);
+      border-bottom: 1px solid rgba(0,245,255,.2);
     }
 
-    body.light .hero-sub { color: rgba(13,13,48,.6); }
+    body.light .hero-sub { color: rgba(13,13,48,.55); }
 
     body.light .qr-modal { background: var(--bg2); }
 
-    body.light .orb { opacity: .12; }
+    /* softer orbs in light mode */
+    body.light .orb { opacity: .08; filter: blur(120px); }
 
     body {
       background: var(--bg);
