@@ -16,6 +16,30 @@
       --text:        #e0e0ff;
     }
 
+    /* ── Light mode overrides ── */
+    body.light {
+      --bg:  #f0f0ff;
+      --bg2: #e0e0f5;
+      --text: #0d0d30;
+    }
+
+    body.light::before {
+      background-image:
+        linear-gradient(rgba(0,100,200,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,100,200,.06) 1px, transparent 1px);
+    }
+
+    body.light nav {
+      background: rgba(240,240,255,.85);
+      border-bottom: 1px solid rgba(0,245,255,.3);
+    }
+
+    body.light .hero-sub { color: rgba(13,13,48,.6); }
+
+    body.light .qr-modal { background: var(--bg2); }
+
+    body.light .orb { opacity: .12; }
+
     body {
       background: var(--bg);
       color: var(--text);
@@ -294,6 +318,30 @@
 
     .qr-close:hover { color: var(--neon-pink); }
 
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .45rem 1rem;
+      border-radius: 4px;
+      border: 1px solid rgba(0,245,255,.45);
+      color: var(--neon-cyan);
+      background: transparent;
+      cursor: pointer;
+      transition: background .2s, box-shadow .2s;
+      box-shadow: 0 0 10px rgba(0,245,255,.15);
+    }
+
+    .theme-toggle:hover {
+      background: rgba(0,245,255,.1);
+      box-shadow: 0 0 18px rgba(0,245,255,.35);
+    }
+
     /* ── Scanline overlay ── */
     body::after {
       content: '';
@@ -324,6 +372,7 @@
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
     </ul>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙 Dark</button>
   </nav>
 
   <!-- QR Modal -->
@@ -368,8 +417,27 @@
         🍸
         Hidden Bar Miami Beach
       </a>
+      <a href="https://ridefreebee.com" target="_blank" rel="noopener" class="btn btn-outline">
+        🐝
+        Miami Free Rides
+      </a>
     </div>
   </section>
+
+  <script>
+    function toggleTheme() {
+      const isLight = document.body.classList.toggle('light');
+      const btn = document.getElementById('themeToggle');
+      btn.textContent = isLight ? '☀️ Light' : '🌙 Dark';
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    }
+
+    // Restore saved preference
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light');
+      document.getElementById('themeToggle').textContent = '☀️ Light';
+    }
+  </script>
 
 </body>
 </html>
