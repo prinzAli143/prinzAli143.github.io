@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PrinzAli: Home</title>
+  <title>PrinzAli: Welcome to Miami</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -14,6 +14,54 @@
       --bg:          #060610;
       --bg2:         #0d0d20;
       --text:        #e0e0ff;
+    }
+
+    /* ── Light mode overrides ── */
+    body.light {
+      --bg:  #f7f7fb;
+      --bg2: #ededf5;
+      --text: #0d0d30;
+    }
+
+    /* hide the grid in light mode */
+    body.light::before { display: none; }
+
+    body.light nav {
+      background: rgba(247,247,251,.92);
+      border-bottom: 1px solid rgba(0,245,255,.2);
+    }
+
+    body.light .hero-sub { color: rgba(13,13,48,.55); }
+
+    body.light .qr-modal { background: var(--bg2); }
+
+    /* softer orbs in light mode */
+    body.light .orb { opacity: .08; filter: blur(120px); }
+
+    /* ── Buttons — light mode ── */
+    body.light .btn {
+      color: #fff;
+      background: linear-gradient(90deg, #00b8cc, #7a00d4);
+      box-shadow: 0 4px 20px rgba(0,180,210,.55), 0 2px 8px rgba(120,0,200,.3);
+    }
+
+    body.light .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(0,180,210,.75), 0 4px 16px rgba(120,0,200,.5);
+    }
+
+    body.light .btn-outline {
+      color: #0099bb;
+      background: rgba(0,200,220,.08);
+      border: 1.5px solid rgba(0,200,220,.6);
+      box-shadow: 0 2px 12px rgba(0,200,220,.25);
+    }
+
+    body.light .btn-outline:hover {
+      background: rgba(0,200,220,.18);
+      color: #007a99;
+      box-shadow: 0 6px 28px rgba(0,200,220,.55), inset 0 0 16px rgba(0,200,220,.12);
+      transform: translateY(-3px);
     }
 
     body {
@@ -294,6 +342,30 @@
 
     .qr-close:hover { color: var(--neon-pink); }
 
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .45rem 1rem;
+      border-radius: 4px;
+      border: 1px solid rgba(0,245,255,.45);
+      color: var(--neon-cyan);
+      background: transparent;
+      cursor: pointer;
+      transition: background .2s, box-shadow .2s;
+      box-shadow: 0 0 10px rgba(0,245,255,.15);
+    }
+
+    .theme-toggle:hover {
+      background: rgba(0,245,255,.1);
+      box-shadow: 0 0 18px rgba(0,245,255,.35);
+    }
+
     /* ── Scanline overlay ── */
     body::after {
       content: '';
@@ -324,6 +396,7 @@
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
     </ul>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙 Dark</button>
   </nav>
 
   <!-- QR Modal -->
@@ -374,6 +447,21 @@
       </a>
     </div>
   </section>
+
+  <script>
+    function toggleTheme() {
+      const isLight = document.body.classList.toggle('light');
+      const btn = document.getElementById('themeToggle');
+      btn.textContent = isLight ? '☀️ Light' : '🌙 Dark';
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    }
+
+    // Restore saved preference
+    if (localStorage.getItem('theme') === 'light') {
+      document.body.classList.add('light');
+      document.getElementById('themeToggle').textContent = '☀️ Light';
+    }
+  </script>
 
 </body>
 </html>
